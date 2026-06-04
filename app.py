@@ -4,6 +4,16 @@ import os
 
 app = Flask(__name__)
 
+@app.route("/debug")
+def debug():
+    cookies_file = "cookies.txt"
+
+    return jsonify({
+        "cookies_exists": os.path.exists(cookies_file),
+        "cookies_path": os.path.abspath(cookies_file),
+        "files": os.listdir(".")
+    })
+
 @app.route("/")
 def home():
     return jsonify({
@@ -32,8 +42,10 @@ def get_stream(video_id):
         ydl_opts['cookiefile'] = os.path.abspath(cookies_file)
     else:
         print("ERRO: cookies.txt não encontrado")
-        print("Ficheiros na raiz:", os.listdir("."))
+
         
+        print("Ficheiros na raiz:", os.listdir("."))
+
     try:
         # Usa o yt-dlp para extrair a informação sem transferir o ficheiro de vídeo
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
