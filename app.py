@@ -28,11 +28,12 @@ def get_stream(video_id):
     
     # Verifica se o ficheiro cookies.txt existe antes de o tentar usar
     if os.path.exists(cookies_file):
-        ydl_opts['cookiefile'] = cookies_file
+        print("Cookies encontrados:", os.path.abspath(cookies_file))
+        ydl_opts['cookiefile'] = os.path.abspath(cookies_file)
     else:
-        # Se não existir, a API ainda tenta rodar, mas avisa no terminal/logs
-        print(f"Aviso: O ficheiro '{cookies_file}' não foi encontrado na raiz. A tentar sem cookies...")
-
+        print("ERRO: cookies.txt não encontrado")
+        print("Ficheiros na raiz:", os.listdir("."))
+        
     try:
         # Usa o yt-dlp para extrair a informação sem transferir o ficheiro de vídeo
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
