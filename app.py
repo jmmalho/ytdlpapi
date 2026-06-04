@@ -31,9 +31,14 @@ def get_stream(video_id):
     
     # Configurações otimizadas para o yt-dlp
     ydl_opts = {
-        'format': 'best[protocol^=http][ext=mp4]/best[protocol^=http]/best',
-        'quiet': True,
-        'no_warnings': True
+        "format": "best[height<=720]/best",
+        "quiet": True,
+        "no_warnings": True,
+        "extractor_args": {
+            "youtube": {
+                "player_client": ["web", "android"]
+            }
+        }
     }
     
     # Verifica se o ficheiro cookies.txt existe antes de o tentar usar
