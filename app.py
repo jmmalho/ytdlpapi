@@ -21,8 +21,8 @@ def get_stream(video_id):
     
     # Configurações otimizadas para o yt-dlp
     ydl_opts = {
-        'format': 'best',  # Escolhe o melhor formato disponível (vídeo + áudio juntos)
-        'quiet': True,     # Evita encher os logs do Render com texto desnecessário
+        'format': 'best[protocol^=http][ext=mp4]/best[protocol^=http]/best',
+        'quiet': True,
         'no_warnings': True
     }
     
